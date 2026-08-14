@@ -1,0 +1,9 @@
+{
+  "name": "day1",
+  "private": true,
+  "scripts": {
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "start:backend": "npm start --prefix backend"
+  }
+}
