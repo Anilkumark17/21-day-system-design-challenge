@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import NotificationBell from "./NotificationBell";
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -20,6 +21,7 @@ const Navbar = () => {
         {isAuthenticated ? (
           <>
             <span className="nav-user">Hi, {user?.name}</span>
+            <NotificationBell />
             <Link to="/dashboard">Dashboard</Link>
             <Link to="/contacts">Contacts</Link>
             <button type="button" className="btn-secondary" onClick={handleLogout}>

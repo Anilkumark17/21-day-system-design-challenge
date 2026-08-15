@@ -5,6 +5,7 @@ const {
   saveMessage,
   getReceiverDeliveryTarget,
 } = require("../services/message/message.service");
+const { sendNotification } = require("../services/notification/notification.service");
 
 const rooms = new Map();
 
@@ -117,6 +118,14 @@ const setupWebSocket = (server) => {
               getRoomKey(receiverTarget.userId, receiverTarget.contactId),
               payload
             );
+
+            sendNotification(receiverTarget.userId, {
+              type: "new_message",
+              from: user.email,
+              preview: content,
+              contactId: receiverTarget.contactId,
+              messageId: message.id,
+            });
           }
         }
       } catch (err) {
