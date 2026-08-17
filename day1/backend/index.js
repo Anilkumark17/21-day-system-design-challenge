@@ -6,6 +6,7 @@ const cors = require("cors");
 const authRoute = require("./src/services/auth/auth.route");
 const protectedRoute = require("./src/routes/protected.route");
 const { setupWebSocket } = require("./src/websocket/socket");
+const { startCronJobs } = require("./src/cron");
 
 const app = express();
 
@@ -32,4 +33,5 @@ setupWebSocket(server);
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`WebSocket: ws://localhost:${PORT}/ws`);
+  startCronJobs();
 });

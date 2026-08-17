@@ -470,3 +470,26 @@ npm run dev:frontend  # from day1/
 - `EventSource` cannot easily send auth headers, so JWT is passed via `?token=`.
 - The backend keeps a `Map` of connected clients and pushes events when messages arrive.
 - Heartbeats keep the connection alive across proxies and idle timeouts.
+
+
+Technical Product Manager Intern — Orakris, Founder’s Office
+Aug 2026 – Jan 2027
+
+Working closely with the founders on product and business initiatives.
+Driving product discovery, defining requirements, and working with engineering on execution.
+
+Technical Product Manager Intern — Margawise
+6 months
+
+Worked on product discovery, user research, AI-powered features, and product workflows.
+Reduced AI generation latency by 75% and contributed to converting 5+ incubation centers into paying customers.
+
+Backend Engineer Intern — NVipani
+3 months
+
+Frontend Engineer Intern — ITProfound
+2 months
+
+Frontend Engineer Intern — MOCX
+2 months
+

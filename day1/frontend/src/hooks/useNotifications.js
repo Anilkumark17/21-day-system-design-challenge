@@ -31,6 +31,11 @@ export const useNotifications = (enabled) => {
       setNotifications((prev) => [data, ...prev]);
     });
 
+    source.addEventListener("daily_digest", (event) => {
+      const data = JSON.parse(event.data);
+      setNotifications((prev) => [data, ...prev]);
+    });
+
     source.onerror = () => {
       setConnected(false);
     };
