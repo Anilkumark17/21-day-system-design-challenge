@@ -7,6 +7,8 @@ const authRoute = require("./src/services/auth/auth.route");
 const protectedRoute = require("./src/routes/protected.route");
 const { setupWebSocket } = require("./src/websocket/socket");
 const { startCronJobs } = require("./src/cron");
+const rateLimit = require("./rate-limiter/rate-limiter-middleware");
+const { verifyToken } = require("./src/utils/jwt");
 
 const app = express();
 
@@ -17,6 +19,32 @@ app.use(
   })
 );
 app.use(express.json());
+
+const getRateLimitKey = (req) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader?.startsWith("Bearer ")) {
+    try {
+      const user = verifyToken(authHeader.split(" ")[1]);
+      return `user:${user.userId}`;
+    } catch {
+      // Fall through to IP-based limiting for invalid tokens.
+    }
+  }
+
+  return `ip:${req.ip}`;
+};
+
+app.use(
+  "/api",
+  rateLimit({
+    capacity: Number(process.env.RATE_LIMIT_CAPACITY || 5),
+    refillRate: Number(process.env.RATE_LIMIT_REFILL_RATE || 1),
+    maxQueueSize: Number(process.env.RATE_LIMIT_MAX_QUEUE || 20),
+    maxWaitMs: Number(process.env.RATE_LIMIT_MAX_WAIT_MS || 5000),
+    keyFn: getRateLimitKey,
+  })
+);
 
 const PORT = process.env.PORT || 5000;
 
